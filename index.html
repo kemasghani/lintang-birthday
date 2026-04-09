@@ -1,322 +1,329 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selamat Ulang Tahun, Lintang</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Lintang 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. THEME & VARIABLES --- */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #fff0f5 0%, #ffe4e6 100%);
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --primary: #be185d;
+            --secondary: #fbcfe8;
+            --text-main: #831843;
+            --shadow: 0 20px 40px rgba(190, 24, 93, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Quicksand', sans-serif;
+            background: var(--bg-gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-main);
+        }
+
+        /* --- 2. BACKGROUND ANIMATION --- */
+        .blobs-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .blob {
+            position: absolute;
+            background: linear-gradient(to right, #fce7f3, #fbcfe8);
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: 0.6;
+            animation: moveBlob 15s infinite alternate ease-in-out;
+        }
+        .b1 { top: -10%; left: -10%; width: 500px; height: 500px; }
+        .b2 { bottom: -10%; right: -20%; width: 400px; height: 400px; animation-delay: -5s; }
+        .b3 { top: 40%; left: 40%; width: 300px; height: 300px; animation-delay: -8s; opacity: 0.4; }
+
+        @keyframes moveBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, -40px) scale(1.1); }
+        }
+
+        /* --- 3. MUSIC CONTROL --- */
+        .music-control {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .music-control:hover { transform: scale(1.1); }
+        .music-icon {
+            font-size: 24px;
+            animation: spin 4s linear infinite;
+            display: block;
+            opacity: 0.5;
+            animation-play-state: paused;
+        }
+        .music-icon.playing {
+            opacity: 1;
+            animation-play-state: running;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- 4. MAIN CARD --- */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 420px;
+            height: 600px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 40px;
+            border: 2px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            transition: height 0.5s ease;
+        }
+
+        /* --- 5. SLIDES SYSTEM --- */
+        .slide {
+            position: absolute;
+            width: 85%;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .slide.active { opacity: 1; transform: translateY(0); pointer-events: all; }
+        .slide.exit { opacity: 0; transform: translateY(-20px) scale(0.95); }
+
+        /* --- 6. TEXT & BUTTONS --- */
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: var(--primary); margin-bottom: 10px; line-height: 1.2; }
+        p { font-size: 1.15rem; line-height: 1.6; margin-bottom: 2rem; font-weight: 500; }
+        .highlight { color: var(--primary); font-weight: 700; }
+
+        .btn {
+            padding: 14px 40px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(to right, #ec4899, #db2777);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(236, 72, 153, 0.4); }
+        .btn::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.2); transform: translateX(-100%); transition: transform 0.3s ease;
+        }
+        .btn:hover::after { transform: translateX(0); }
+
+        /* --- 7. GIFTS GRID --- */
+        .grid-gifts { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-bottom: 20px; }
+        .gift-box {
+            background: rgba(255,255,255,0.6); padding: 15px; border-radius: 20px; cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid white;
+        }
+        .gift-box:hover { transform: scale(1.05); background: white; }
+        .gift-box span { font-size: 2rem; display: block; margin-bottom: 5px; }
+        .gift-box small { font-size: 0.8rem; font-weight: 700; }
+
+        /* Dots */
+        .dots { position: absolute; bottom: 20px; display: flex; gap: 8px; }
+        .dot { width: 8px; height: 8px; background: #fbcfe8; border-radius: 50%; transition: all 0.3s ease; }
+        .dot.active { width: 25px; background: var(--primary); border-radius: 10px; }
+
+        /* Floating Hearts */
+        .floating-heart {
+            position: absolute; color: var(--primary); animation: floatUp 4s linear forwards;
+            font-size: 20px; pointer-events: none; z-index: 100;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- CURSOR TRAIL -->
-  <div class="cursor-trail" id="cursorTrail"></div>
-  <div class="click-burst-container" id="clickBurst"></div>
+    <audio id="bgMusic" loop>
+        <source src="./song.mp3" type="audio/mp3">
+    </audio>
 
-  <!-- OPENING SCREEN -->
-  <div id="opening" class="opening">
-    <div class="envelope-scene">
-      <div class="stars-bg" id="starsBg"></div>
-      <div class="opening-content">
-        <p class="opening-subtitle">Sebuah surat untuk</p>
-        <h1 class="opening-name">Lintang</h1>
-        <div class="envelope" id="envelope">
-          <div class="envelope-top"></div>
-          <div class="envelope-body">
-            <div class="envelope-letter">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DB2777" stroke-width="1.5">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <button class="open-btn" id="openBtn">
-          <span>Buka Surat</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MAIN CONTENT -->
-  <main id="mainContent" class="main-content hidden">
-
-    <!-- FLOATING ELEMENTS -->
-    <div class="floating-hearts" id="floatingHearts"></div>
-    <div class="rose-petals" id="rosePetals"></div>
-
-    <!-- MUSIC PLAYER -->
-    <div class="music-player" id="musicPlayer">
-      <button class="music-btn" id="musicBtn" aria-label="Toggle musik">
-        <svg class="music-icon playing" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
-        </svg>
-        <svg class="music-icon paused" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="1" y1="1" x2="23" y2="23"/><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
-        </svg>
-      </button>
-      <div class="music-info">
-        <span class="music-title">Best Part</span>
-        <span class="music-artist">Daniel Caesar ft. H.E.R.</span>
-      </div>
-      <div class="music-bars"><span></span><span></span><span></span><span></span></div>
+    <div class="music-control" onclick="toggleMusic()">
+        <span class="music-icon" id="musicIcon">🎵</span>
     </div>
 
-    <!-- SLIDE NAVIGATION -->
-    <nav class="slide-nav" id="slideNav">
-      <button class="slide-dot active" data-slide="0" aria-label="Slide 1"></button>
-      <button class="slide-dot" data-slide="1" aria-label="Slide 2"></button>
-      <button class="slide-dot" data-slide="2" aria-label="Slide 3"></button>
-      <button class="slide-dot" data-slide="3" aria-label="Slide 4"></button>
-      <button class="slide-dot" data-slide="4" aria-label="Slide 5"></button>
-      <button class="slide-dot" data-slide="5" aria-label="Slide 6"></button>
-      <button class="slide-dot" data-slide="6" aria-label="Slide 7"></button>
-      <button class="slide-dot" data-slide="7" aria-label="Slide 8"></button>
-    </nav>
-
-    <!-- SLIDE ARROWS -->
-    <button class="slide-arrow slide-arrow-prev hidden" id="prevArrow" aria-label="Sebelumnya">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
-    <button class="slide-arrow slide-arrow-next" id="nextArrow" aria-label="Berikutnya">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-    </button>
-
-    <!-- SLIDES CONTAINER -->
-    <div class="slides-wrapper" id="slidesWrapper">
-
-      <!-- SLIDE 0: HERO -->
-      <section class="slide slide-hero active" data-index="0">
-        <div class="hero-particles" id="heroParticles"></div>
-        <div class="parallax-layer"><div class="parallax-circle c1"></div><div class="parallax-circle c2"></div></div>
-        <div class="slide-content">
-          <p class="hero-tag slide-anim slide-anim-1">Selamat Ulang Tahun</p>
-          <h1 class="hero-name slide-anim slide-anim-2">Lintang</h1>
-          <div class="hero-divider slide-anim slide-anim-3">
-            <span></span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="#DB2777"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            <span></span>
-          </div>
-          <p class="hero-quote slide-anim slide-anim-4">"You are the best part of me..."</p>
-        </div>
-      </section>
-
-      <!-- SLIDE 1: LETTER -->
-      <section class="slide slide-letter" data-index="1">
-        <div class="slide-content">
-          <p class="section-tag slide-anim slide-anim-1">Dari Hati yang Terdalam</p>
-          <h2 class="section-title slide-anim slide-anim-2">Untukmu, Lintang</h2>
-          <div class="letter-card slide-anim slide-anim-3">
-            <div class="letter-content" id="letterContent">
-              <p class="typewriter-line" data-text="Hai Lintang,"></p>
-              <p class="typewriter-line" data-text="Di hari spesialmu ini, aku ingin kamu tahu betapa berartinya kamu. Kamu adalah bintang yang selalu menerangi malam-malamku."></p>
-              <p class="typewriter-line" data-text="Setiap detik bersamamu adalah hadiah terindah. Senyummu mampu mengubah hari terburuk menjadi penuh warna."></p>
-              <p class="typewriter-line" data-text="Aku berdoa semoga Tuhan selalu menjagamu, memberimu kebahagiaan, kesehatan, dan semua impianmu terwujud."></p>
-              <p class="typewriter-line letter-closing" data-text="Selamat ulang tahun, cintaku."></p>
-              <p class="typewriter-line letter-signature" data-text="Dengan sepenuh hati"></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 2: PORTRAIT -->
-      <section class="slide slide-portrait" data-index="2">
-        <div class="slide-content">
-          <p class="section-tag slide-anim slide-anim-1">Cahaya Hidupku</p>
-          <h2 class="section-title slide-anim slide-anim-2">Kamu, Sempurna</h2>
-          <div class="portrait-showcase slide-anim slide-anim-3">
-            <div class="portrait-frame">
-              <img src="lintang-4.jpg" alt="Lintang" class="portrait-img" loading="lazy">
-            </div>
-            <p class="portrait-quote">"If you asked me to describe beauty, I'd just say your name."</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 3: GALLERY -->
-      <section class="slide slide-gallery" data-index="3">
-        <div class="slide-content">
-          <p class="section-tag slide-anim slide-anim-1">Kenangan Indah</p>
-          <h2 class="section-title slide-anim slide-anim-2">Momen Bersama</h2>
-          <div class="gallery-carousel slide-anim slide-anim-3" id="galleryCarousel">
-            <div class="carousel-track" id="carouselTrack">
-              <div class="carousel-item">
-                <img src="lintang-1.jpg" alt="Lintang" loading="lazy">
-                <span class="carousel-caption">Senyummu</span>
-              </div>
-              <div class="carousel-item">
-                <img src="lintang-2.jpg" alt="Lintang" loading="lazy">
-                <span class="carousel-caption">Elegannya</span>
-              </div>
-              <div class="carousel-item">
-                <img src="lintang-3.jpg" alt="Lintang" loading="lazy">
-                <span class="carousel-caption">Manisnya</span>
-              </div>
-              <div class="carousel-item">
-                <img src="lintang-5.jpg" alt="Lintang" loading="lazy">
-                <span class="carousel-caption">Cantiknya</span>
-              </div>
-            </div>
-            <div class="carousel-controls">
-              <button class="carousel-btn" id="carouselPrev" aria-label="Foto sebelumnya">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-              </button>
-              <div class="carousel-dots" id="carouselDots"></div>
-              <button class="carousel-btn" id="carouselNext" aria-label="Foto berikutnya">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 4: CAKE -->
-      <section class="slide slide-cake" data-index="4">
-        <div class="slide-content">
-          <p class="section-tag slide-anim slide-anim-1">Make a Wish</p>
-          <h2 class="section-title slide-anim slide-anim-2">Tiup Lilinnya!</h2>
-          <div class="cake-wrapper slide-anim slide-anim-3">
-            <p class="cake-instruction" id="cakeInstruction">Klik lilin untuk meniup dan membuat harapan!</p>
-            <div class="cake" id="birthdayCake">
-              <div class="candles">
-                <div class="candle" data-index="0"><div class="flame"><div class="flame-inner"></div></div><div class="candle-body"></div></div>
-                <div class="candle" data-index="1"><div class="flame"><div class="flame-inner"></div></div><div class="candle-body"></div></div>
-                <div class="candle" data-index="2"><div class="flame"><div class="flame-inner"></div></div><div class="candle-body"></div></div>
-                <div class="candle" data-index="3"><div class="flame"><div class="flame-inner"></div></div><div class="candle-body"></div></div>
-                <div class="candle" data-index="4"><div class="flame"><div class="flame-inner"></div></div><div class="candle-body"></div></div>
-              </div>
-              <div class="cake-top"></div>
-              <div class="cake-middle"></div>
-              <div class="cake-bottom"></div>
-              <div class="cake-plate"></div>
-            </div>
-            <div class="cake-message hidden" id="cakeMessage">
-              <h3>Semua harapanmu akan terkabul!</h3>
-            </div>
-          </div>
-          <div class="confetti-container" id="confettiContainer"></div>
-        </div>
-      </section>
-
-      <!-- SLIDE 5: QUALITIES (FLIP CARDS) -->
-      <section class="slide slide-qualities" data-index="5">
-        <div class="slide-content">
-          <p class="section-tag slide-anim slide-anim-1">Yang Aku Kagumi</p>
-          <h2 class="section-title slide-anim slide-anim-2">Tentang Dirimu</h2>
-          <p class="flip-hint slide-anim slide-anim-2">Klik kartu untuk pesan rahasia</p>
-          <div class="qualities-grid slide-anim slide-anim-3">
-            <div class="flip-card" tabindex="0">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <div class="quality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg></div>
-                  <h3>Senyummu</h3>
-                </div>
-                <div class="flip-card-back"><p class="back-message">Setiap kali kamu tersenyum, aku jatuh cinta lagi untuk yang keseribu kalinya.</p></div>
-              </div>
-            </div>
-            <div class="flip-card" tabindex="0">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <div class="quality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></div>
-                  <h3>Kebaikanmu</h3>
-                </div>
-                <div class="flip-card-back"><p class="back-message">Kamu mengajarkanku arti cinta yang sesungguhnya lewat setiap perbuatanmu.</p></div>
-              </div>
-            </div>
-            <div class="flip-card" tabindex="0">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <div class="quality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg></div>
-                  <h3>Kecantikanmu</h3>
-                </div>
-                <div class="flip-card-back"><p class="back-message">Kalau bintang bisa cemburu, mereka pasti cemburu padamu. Kamu bersinar lebih terang.</p></div>
-              </div>
-            </div>
-            <div class="flip-card" tabindex="0">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <div class="quality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-                  <h3>Tawamu</h3>
-                </div>
-                <div class="flip-card-back"><p class="back-message">Kalau aku bisa merekam satu suara selamanya, itu pasti tawamu.</p></div>
-              </div>
-            </div>
-            <div class="flip-card" tabindex="0">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <div class="quality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
-                  <h3>Kecerdasanmu</h3>
-                </div>
-                <div class="flip-card-back"><p class="back-message">Kamu bukan hanya cantik, kamu cerdas luar biasa. Aku bangga mengenalmu.</p></div>
-              </div>
-            </div>
-            <div class="flip-card" tabindex="0">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <div class="quality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-                  <h3>Kehadiranmu</h3>
-                </div>
-                <div class="flip-card-back"><p class="back-message">Bertemu denganmu adalah kebetulan paling indah yang pernah terjadi padaku.</p></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 6: TIMER + PRAYERS -->
-      <section class="slide slide-timer" data-index="6">
-        <div class="slide-content">
-          <p class="section-tag slide-anim slide-anim-1">Waktu Bersama</p>
-          <h2 class="section-title slide-anim slide-anim-2">Setiap Detik Berarti</h2>
-          <div class="timer-card slide-anim slide-anim-3">
-            <div class="timer-grid" id="loveTimer">
-              <div class="timer-unit"><span class="timer-number" id="timerDays">0</span><span class="timer-label">Hari</span></div>
-              <div class="timer-separator">:</div>
-              <div class="timer-unit"><span class="timer-number" id="timerHours">0</span><span class="timer-label">Jam</span></div>
-              <div class="timer-separator">:</div>
-              <div class="timer-unit"><span class="timer-number" id="timerMinutes">0</span><span class="timer-label">Menit</span></div>
-              <div class="timer-separator">:</div>
-              <div class="timer-unit"><span class="timer-number" id="timerSeconds">0</span><span class="timer-label">Detik</span></div>
-            </div>
-            <p class="timer-subtitle">sejak kita pertama bertemu</p>
-          </div>
-          <div class="special-wishes slide-anim slide-anim-4">
-            <div class="wish-item"><svg viewBox="0 0 24 24" fill="#DB2777" width="18" height="18"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><p>Semoga kebahagiaan selalu menghampirimu</p></div>
-            <div class="wish-item"><svg viewBox="0 0 24 24" fill="#DB2777" width="18" height="18"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><p>Semoga impianmu menjadi kenyataan</p></div>
-            <div class="wish-item"><svg viewBox="0 0 24 24" fill="#DB2777" width="18" height="18"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><p>Semoga cinta tak pernah pudar dari hidupmu</p></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SLIDE 7: CLOSING -->
-      <section class="slide slide-closing" data-index="7">
-        <div class="slide-content">
-          <div class="footer-hearts slide-anim slide-anim-1">
-            <svg viewBox="0 0 24 24" fill="#F472B6" width="16" height="16"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            <svg viewBox="0 0 24 24" fill="#DB2777" width="28" height="28"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            <svg viewBox="0 0 24 24" fill="#F472B6" width="16" height="16"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          </div>
-          <h2 class="closing-title slide-anim slide-anim-2">Selamat Ulang Tahun, Lintang</h2>
-          <p class="closing-subtitle slide-anim slide-anim-3">Terima kasih sudah hadir di hidupku dan menjadi bagian terindah dari ceritaku.</p>
-          <div class="closing-lyric slide-anim slide-anim-4">
-            <p>"You don't know, babe, when you hold me and kiss me slowly... it's the sweetest thing."</p>
-          </div>
-          <p class="closing-sign slide-anim slide-anim-5">Dengan cinta,<br><span>Untukmu Selamanya</span></p>
-        </div>
-      </section>
-
+    <div class="blobs-container">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
     </div>
-  </main>
 
-  <!-- AUDIO -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="best-part.mp3" type="audio/mpeg">
-  </audio>
+    <div class="container">
+        <div class="slide active" id="slide1">
+            <h1>Hi Lintang...</h1>
+            <p>You are the star that lights up my darkest nights. <br>Let me be your safe place tonight.</p>
+            <p style="font-size: 0.9rem; margin-top: -10px; opacity: 0.7;">(Put your volume up & let me hold you close)</p>
+            <button class="btn" onclick="startExperience()">I'm here with you 🌸</button>
+        </div>
 
-  <script src="script.js"></script>
+        <div class="slide" id="slide2">
+            <h1>You Know What?</h1>
+            <p>Every moment with you feels like a dream I never want to wake up from.</p>
+            <p>Your smile? It makes my whole world stop. You are the most <span class="highlight">beautiful</span> thing that ever happened to me.</p>
+            <button class="btn" onclick="nextSlide(3)">You make me melt 🤍</button>
+        </div>
+
+        <div class="slide" id="slide3">
+            <h1>My Promises</h1>
+            <p style="margin-bottom: 1rem;">Each one, straight from my heart:</p>
+            <div class="grid-gifts">
+                <div class="gift-box" onclick="popHeart(this)"><span>💋</span> <small>Endless Kisses</small></div>
+                <div class="gift-box" onclick="popHeart(this)"><span>🤗</span> <small>Tight Hugs</small></div>
+                <div class="gift-box" onclick="popHeart(this)"><span>🌙</span> <small>Late Night Calls</small></div>
+                <div class="gift-box" onclick="popHeart(this)"><span>💌</span> <small>Love Letters</small></div>
+            </div>
+            <button class="btn" onclick="nextSlide(4)">I Want Them All ✨</button>
+        </div>
+
+        <div class="slide" id="slide4">
+            <h1>Forever Yours.</h1>
+            <p>I fell in love with you once, and I fall in love with you again every single day, Lintang.</p>
+            <p>You are my today, my tomorrow, and my always.</p>
+            <p style="font-family:'Dancing Script'; font-size: 1.8rem; color: var(--primary); margin-top: 20px;">With all my love, Ghani</p>
+            <button class="btn" onclick="restart()">Replay ↺</button>
+        </div>
+
+        <div class="dots">
+            <div class="dot active" id="dot1"></div>
+            <div class="dot" id="dot2"></div>
+            <div class="dot" id="dot3"></div>
+            <div class="dot" id="dot4"></div>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        let isPlaying = false;
+
+        // Function to start music on first interaction (Bypasses Autoplay block)
+        function startExperience() {
+            // Attempt to play
+            const playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    isPlaying = true;
+                    musicIcon.classList.add('playing');
+                    
+                    // Smooth volume fade-in
+                    audio.volume = 0.1;
+                    let vol = 0.1;
+                    const interval = setInterval(() => {
+                        if (vol < 0.8) {
+                            vol += 0.05;
+                            audio.volume = vol;
+                        } else {
+                            clearInterval(interval);
+                        }
+                    }, 200);
+                })
+                .catch(error => {
+                    console.log("Autoplay prevented or file not found.");
+                });
+            }
+            
+            nextSlide(2);
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicIcon.classList.remove('playing');
+            } else {
+                audio.play();
+                musicIcon.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function nextSlide(step) {
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+                slide.classList.add('exit');
+            });
+            document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
+            document.getElementById('dot' + step).classList.add('active');
+
+            setTimeout(() => {
+                document.querySelectorAll('.slide').forEach(s => s.classList.remove('exit'));
+                const next = document.getElementById('slide' + step);
+                next.classList.add('active');
+                if(step === 4) launchConfetti();
+            }, 400);
+        }
+
+        function restart() {
+            nextSlide(1);
+        }
+
+        function popHeart(element) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.className = 'floating-heart';
+            const rect = element.getBoundingClientRect();
+            heart.style.left = (rect.left + rect.width / 2) + 'px';
+            heart.style.top = (rect.top) + 'px';
+            document.body.appendChild(heart);
+            if (navigator.vibrate) navigator.vibrate(50);
+            setTimeout(() => heart.remove(), 4000);
+        }
+
+        function launchConfetti() {
+            for(let i=0; i<50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = ['❤️', '🌸', '✨'][Math.floor(Math.random()*3)];
+                    heart.className = 'floating-heart';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '100vh';
+                    heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    document.body.appendChild(heart);
+                }, i * 50);
+            }
+        }
+    </script>
 </body>
 </html>
